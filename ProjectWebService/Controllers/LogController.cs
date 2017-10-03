@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjectWebService.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -10,9 +11,11 @@ namespace ProjectWebService.Controllers
     public class LogController : ApiController
     {
         // GET: api/Log
-        public IEnumerable<string> Get()
+        public List<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            Log logReader = new Log();
+
+            return logReader.ReadLog();
         }
 
         // GET: api/Log/5
