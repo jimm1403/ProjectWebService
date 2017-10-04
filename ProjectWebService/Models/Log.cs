@@ -10,31 +10,41 @@ namespace ProjectWebService.Models
     public class Log
     {
         List<Notification> logfileList = new List<Notification>();
+        int oldCount = 0;
+
 
         public void ReadLog()
         {
-            bool run = true;
-            StreamReader reader = new StreamReader(@"C:\Users\jimmi\Documents\logfil.txt");
-            reader.ReadLine();
-            while (run)
+            int newCount = CountLines();
+            int difference = newCount - oldCount;
+            using (StreamReader reader = new StreamReader(@"C:\Users\jimmi\Documents\logfil.txt"))
             {
+                
+                reader.ReadLine();
                 string data = reader.ReadLine();
+                for (int i = 0; i < difference - 1; i++)
+                {
+                    logfileList.Add(new Notification(data));
+                    data = reader.ReadLine();
+                }
 
-                if (data != null)
-                {
-                    Notification notification = new Notification(data);
-                    logfileList.Add(notification);
-                }
-                else
-                {
-                    run = false;
-                }
+                oldCount = newCount;
             }
         }
+
 
         public Notification Search(string name)
         {
             return logfileList.Find(x => x.Name == name);
+        }
+
+        public int CountLines()
+        {
+            using (StreamReader reader = new StreamReader(@"C:\Users\jimmi\Documents\logfil.txt"))
+            {
+                string[] dataSplit = reader.ReadToEnd().Split('\n');
+                return dataSplit.Length - 1;
+            }
         }
     }
 }

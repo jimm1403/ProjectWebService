@@ -17,26 +17,5 @@ namespace ProjectWebService.Controllers
             logReader.ReadLog();
             return logReader.Search(name);
         }
-
-        // GET: api/Log/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST: api/Log
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT: api/Log/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/Log/5
-        public void Delete(int id)
-        {
-        }
     }
 }
