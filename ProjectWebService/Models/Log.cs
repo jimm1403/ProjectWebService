@@ -11,7 +11,7 @@ namespace ProjectWebService.Models
     {
         List<Notification> logfileList = new List<Notification>();
 
-        public List<Notification> ReadLog()
+        public void ReadLog()
         {
             bool run = true;
             StreamReader reader = new StreamReader(@"C:\Users\jimmi\Documents\logfil.txt");
@@ -30,13 +30,11 @@ namespace ProjectWebService.Models
                     run = false;
                 }
             }
-            
-            return logfileList;
         }
 
-        public Notification Search()
+        public Notification Search(string name)
         {
-
+            return logfileList.Find(x => x.Name == name);
         }
     }
 }

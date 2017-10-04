@@ -10,12 +10,12 @@ namespace ProjectWebService.Controllers
 {
     public class LogController : ApiController
     {
-        // GET: api/Log
-        public Notification Get()
+        // GET: api/Log/ulla
+        public Notification Get(string name)
         {
             Log logReader = new Log();
-
-            return logReader.ReadLog();
+            logReader.ReadLog();
+            return logReader.Search(name);
         }
 
         // GET: api/Log/5

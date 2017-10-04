@@ -15,9 +15,9 @@ namespace ProjectWebService
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                name: "GetSpecificNotification",
+                routeTemplate: "api/{controller}/{name}"
+                //defaults: new { id = RouteParameter.Optional }
             );
         }
     }
