@@ -11,7 +11,7 @@ namespace ProjectWebService.Controllers
     public class LogController : ApiController
     {
         // GET: api/Log
-        public List<string> Get()
+        public Notification Get()
         {
             Log logReader = new Log();
 

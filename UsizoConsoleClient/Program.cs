@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -33,6 +34,8 @@ namespace UsizoConsoleClient
 
         public async Task MyAPIGet(HttpClient client)
         {
+            Stream data;
+            //StreamReader data;
             using (client)
             {
                 HttpResponseMessage response = await client.GetAsync("api/log");
@@ -40,6 +43,8 @@ namespace UsizoConsoleClient
                 if (response.IsSuccessStatusCode)
                 {
                     logFile = await response.Content.ReadAsStringAsync();
+                    data = await response.Content.ReadAsStreamAsync();
+
                 }
             }
             ConvertLogStringToList();

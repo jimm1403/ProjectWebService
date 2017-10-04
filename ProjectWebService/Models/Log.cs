@@ -9,20 +9,21 @@ namespace ProjectWebService.Models
 {
     public class Log
     {
-        List<string> logfileList = new List<string>();
+        List<Notification> logfileList = new List<Notification>();
 
-        public List<string> ReadLog()
+        public List<Notification> ReadLog()
         {
             bool run = true;
             StreamReader reader = new StreamReader(@"C:\Users\jimmi\Documents\logfil.txt");
+            reader.ReadLine();
             while (run)
             {
                 string data = reader.ReadLine();
 
                 if (data != null)
                 {
-                    string[] dataSeperated = SeperateString(data);
-                    CreateString(dataSeperated);
+                    Notification notification = new Notification(data);
+                    logfileList.Add(notification);
                 }
                 else
                 {
@@ -33,26 +34,9 @@ namespace ProjectWebService.Models
             return logfileList;
         }
 
-        private string[] SeperateString(string input)
+        public Notification Search()
         {
-            string[] splitString = input.Split('\t');
-            return splitString;
+
         }
-        private void CreateString(string [] logLine)
-        {
-            string finishedLogLine = "";
-            StringBuilder creator = new StringBuilder();
-
-            foreach (string line in logLine)
-            {
-                finishedLogLine += line + ", ";
-                //creator.Append(line + ", ");
-                
-            }
-
-            finishedLogLine += '/';
-            logfileList.Add(finishedLogLine);
-        }
-
     }
 }
