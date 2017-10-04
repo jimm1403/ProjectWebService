@@ -17,5 +17,11 @@ namespace ProjectWebService.Controllers
             logReader.ReadLog();
             return logReader.Search(name);
         }
+
+        // POST: api/Log
+        public void Post()
+        {
+
+        }
     }
 }
