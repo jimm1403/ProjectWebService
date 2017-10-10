@@ -31,7 +31,6 @@ namespace ProjectWebService.Models
         {
             string[] splitString = input.Split('\t');
             return splitString;
-
         }
     }
 

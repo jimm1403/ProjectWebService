@@ -17,9 +17,9 @@ namespace ProjectWebService.Models
         {
             int newCount = CountLines();
             int difference = newCount - oldCount;
+
             using (StreamReader reader = new StreamReader(@"C:\Users\jimmi\Documents\logfil.txt"))
             {
-                
                 reader.ReadLine();
                 string data = reader.ReadLine();
                 for (int i = 0; i < difference - 1; i++)
@@ -31,7 +31,16 @@ namespace ProjectWebService.Models
                 oldCount = newCount;
             }
         }
+        public List<Notification> GetList()
+        {
+            List<Notification> tempList = new List<Notification>();
 
+            for (int i = 0; i < 20; i++)
+            {
+                tempList.Add(logfileList[i]);
+            }
+            return tempList;
+        }
 
         public Notification Search(string name)
         {

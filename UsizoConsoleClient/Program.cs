@@ -34,8 +34,6 @@ namespace UsizoConsoleClient
 
         public async Task MyAPIGet(HttpClient client)
         {
-            Stream data;
-            //StreamReader data;
             using (client)
             {
                 HttpResponseMessage response = await client.GetAsync("api/log");
@@ -43,7 +41,6 @@ namespace UsizoConsoleClient
                 if (response.IsSuccessStatusCode)
                 {
                     logFile = await response.Content.ReadAsStringAsync();
-                    data = await response.Content.ReadAsStreamAsync();
 
                 }
             }
@@ -52,14 +49,14 @@ namespace UsizoConsoleClient
         }
         public void ConvertLogStringToList()
         {
-            string[] loglines = logFile.Split('/');
+            string[] loglines = logFile.Split('\n');
             foreach (string line in loglines)
             {
                 logFileList.Add(line);
             }
-            for (int i = 0; i < 10; i++)
+            foreach (var line in logFileList)
             {
-                Console.WriteLine(logFileList[i]);
+                Console.WriteLine(line);
             }
         }
         
