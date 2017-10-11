@@ -11,6 +11,7 @@ namespace UsizoConsoleClient
     {
         static HttpClient client = new HttpClient();
         string logFile;
+        string command;
         List<string> logFileList = new List<string>();
 
 
@@ -19,6 +20,8 @@ namespace UsizoConsoleClient
             Program program = new Program();
             Console.WriteLine("hello, click enter when api is ready");
             Console.ReadLine();
+            Console.WriteLine("getall : gets all lines");
+            Console.WriteLine("getbyname : gets a log line by a specific name");
             program.GetLogFile();
 
         }
@@ -28,8 +31,24 @@ namespace UsizoConsoleClient
             client.BaseAddress = new Uri("http://localhost:4139/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            while (true)
+            {
+                command = Console.ReadLine();
 
-            MyAPIGet(client).Wait();
+                if (command == "getall")
+                {
+                    MyAPIGet(client).Wait();
+                }
+                else if (command == "getbyname")
+                {
+                    GetByName(client).Wait();
+                }
+                else
+                {
+                    Console.WriteLine("Wrong command, try 'getall' or 'getbyname'");
+                }
+            }
+            
         }
 
         public async Task MyAPIGet(HttpClient client)
@@ -45,6 +64,23 @@ namespace UsizoConsoleClient
                 }
             }
             ConvertLogStringToList();
+            Console.ReadLine();
+        }
+        public async Task GetByName(HttpClient client)
+        {
+            Console.WriteLine("Write the name you would like to find logs for");
+            string name = Console.ReadLine();
+
+            using (client)
+            {
+                HttpResponseMessage response = await client.GetAsync("api/log/" + name);
+                response.EnsureSuccessStatusCode();
+                if (response.IsSuccessStatusCode)
+                {
+                    logFile = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine(logFile);
+                }
+            }
             Console.ReadLine();
         }
         public void ConvertLogStringToList()
